@@ -300,7 +300,7 @@ validation_results, thresholds, validation_cost_curves, val_probs_store, test_pr
     X_train, X_val, X_test, y_train, y_val, y_test, float(cost_fp), float(cost_fn)
 )
 
-# --- Section 6 & 7: Validation Comparison & Best per Approach ---
+# --- Validation Comparison & Best per Approach ---
 st.header("1. Validation Comparison Across All 12 Combinations")
 sorted_val = validation_results.sort_values("Validation cost (best threshold)").reset_index(drop=True)
 st.dataframe(sorted_val.round(4))
@@ -341,7 +341,7 @@ ax_curve.legend()
 fig_curve.tight_layout()
 st.pyplot(fig_curve)
 
-# --- Section 8 & 9: Final Model Selection & Test Evaluation ---
+# --- Final Model Selection & Test Evaluation ---
 st.header("3. Final Model Selection & Test Set Evaluation")
 best_row = validation_results.loc[validation_results["Validation cost (best threshold)"].idxmin()]
 best_approach = best_row["Feature approach"]
@@ -366,7 +366,7 @@ for label, thr in [
 test_results_df = pd.DataFrame(test_rows).set_index("Decision rule")
 st.dataframe(test_results_df.round(4))
 
-col_cm, col_info = st.columns([1, 1])
+col_cm, _ = st.columns([1, 1])
 with col_cm:
     final_pred = (best_test_prob >= best_threshold).astype(int)
     fig_cm, ax_cm = plt.subplots(figsize=(5.5, 4.2))
@@ -381,7 +381,7 @@ with col_cm:
     fig_cm.tight_layout()
     st.pyplot(fig_cm)
 
-# --- Section 10: Compare 5:1 and 3:1 Cost Ratios ---
+# --- Compare 5:1 and 3:1 Cost Ratios ---
 st.header("4. Business Cost Ratio Comparison (5:1 vs. 3:1)")
 best_val_prob = val_probs_store[(best_approach, best_model_name)]
 
