@@ -1,8 +1,11 @@
-fastapi
-uvicorn
-pydantic
+streamlit
+matplotlib
 numpy
 pandas
 scikit-learn
 joblib
 xlrd
+openpyxl
+fastapi
+uvicorn
+pydantic
